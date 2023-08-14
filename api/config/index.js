@@ -1,4 +1,4 @@
-const mysql = require("mysql");
+const mysql = require("mysql2");
 
 // Create connection to db
 
@@ -12,3 +12,5 @@ con.connect(function (err) {
     if (err) throw err;
     console.log("Connected!")
 });
+
+module.exports = con; 
