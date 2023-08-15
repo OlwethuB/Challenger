@@ -30,7 +30,21 @@ router.get('/users', (req, res) => {
 
 // GET (/user/:id) - Display a single user
 router.get('/user/', (req, res) => {
-    
+    const { userID } = req.params;
+    const sql = ' SELECT * FROM Users WHERE userID= ?';
+    const params = [userID];
+    connection.query(sql, params, (error, results, fields) => {
+        if (error) {
+            console.log('Error getting user by ID: ', error);
+            res.status(500).send('Error');
+        } else if (results.length === 0){
+            console.log('User not found');
+        } else {
+            console.log('User ID retrieved successfully');
+            res.json(results[0]);
+        }
+    });
+
 });
 
 // PUT (/user/:id) - Update user’s record

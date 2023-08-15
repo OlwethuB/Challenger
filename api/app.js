@@ -10,16 +10,17 @@ const routes = require('./router');
 
 app.use(express.json());
 // app.use(cors());
+app.use(express.urlencoded({ extended: true }));
+
 
 app.use((err, req, res, next) => { // error handling in middleware
-    console.error(err.stack)
     res.status(500).send('Somme Broke Bruv!')
 });
 
 app.use(cookieParser()) // Load the cookie-parsing middleware
 
 // Use routes
-app.use("/", routes);
+app.get("/", routes);
 
 app.listen(port, () => {
     console.log(`Server is running on port ${port}`);
