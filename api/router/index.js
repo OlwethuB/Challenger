@@ -87,7 +87,18 @@ router.post('/register', (req, res) => {
 
 // DELETE (/user/:id) - To delete a single user
 router.delete('/user/:id', (req, res) => {
-
+    const { userID } = req.params;
+    const sql = 'DELETE FROM Users WHERE userID = ?';
+    const params = [ userID ];
+    connection.query(sql, params, (error, results, fields) => {
+        if (error) {
+            console.log('Error deleting user: ', error);
+            res.status(500).send('error');
+        } else {
+            console.log('User deleted');
+            res.send('User info deleted successfully')
+        }
+    });
 });
 
 // POST (/book) - To add a new book
