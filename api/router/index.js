@@ -65,9 +65,17 @@ router.put('/user/:id', (req, res) => {
 });
 
 // PATCH (/user/:id) - To modify a user’s record
-router.patch('/user/:id', (req, res) => {
-    // don't know what to put here...
-});
+router.patch('/:id', async (req, res) => {
+    try {
+      const { id } = req.params;
+      const { firstName, lastName, DOB, email, password, profilePic } = req.body;
+      const updatedUser = await User.findByIdAndUpdate(id, { firstName, lastName, DOB, email, password, profilePic }, { new: true });
+      res.json(updatedUser);
+    } catch (err) {
+      console.error(err);
+      res.status(500).json({ error: 'Internal server error' });
+    }
+  });
 
 // POST (/register) - To register a new user
 router.post('/register', (req, res) => {
