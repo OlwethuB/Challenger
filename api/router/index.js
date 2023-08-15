@@ -11,7 +11,7 @@ connection.connect();
 
 // GET (/ OR /challenger) - Home page it will display all routes with it description
 router.get( '/', (req, res) => {
-
+    res.send(`Available commands: ${commands.join(', ')}`);
 });
  
 // GET (/users) - Display a list of users
@@ -65,8 +65,8 @@ router.put('/user/:id', (req, res) => {
 });
 
 // PATCH (/user/:id) - To modify a user’s record
-router.patch('/user/:id', (req, res) =>{
-
+router.patch('/user/:id', (req, res) => {
+    // don't know what to put here...
 });
 
 // POST (/register) - To register a new user
