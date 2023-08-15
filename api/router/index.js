@@ -49,7 +49,19 @@ router.get('/user/', (req, res) => {
 
 // PUT (/user/:id) - Update user’s record
 router.put('/user/:id', (req, res) => {
-
+    const { userID } = req.params;
+    const { firstName, lastName, DOB, email, password, profilePic } = req.body;
+    const sql = 'UPDATE books SET firstName = ?, lastName = ?, DOB = ?, email = ?, password = ?, profilePic = ?  WHERE userID = ?';
+    const params = [firstName, lastName, DOB, email, password, profilePic];
+    connection.query(sql, params, (error, results, fields) => {
+        if (error) {
+            console.log('Error updating user: ', error);
+            res.status(500).send('Error');
+        } else {
+            console.log('User updated');
+            res.json({ message: 'User updated successfully' });
+        }
+    });
 });
 
 // PATCH (/user/:id) - To modify a user’s record
