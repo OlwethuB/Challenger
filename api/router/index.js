@@ -13,15 +13,24 @@ connection.connect();
 router.get( '/', (req, res) => {
 
 });
-
+ 
 // GET (/users) - Display a list of users
 router.get('/users', (req, res) => {
-
+    const sql = 'SELECT * FROM Users';
+    connection.query(sql, (error, results, fields) => {
+        if (error) {
+            console.log('error getting user info: ', error);
+            res.status(500).send('Error');
+        } else {
+            console.log('User info retrieved successfully');
+            res.json(results);
+        }
+    });
 });
 
 // GET (/user/:id) - Display a single user
 router.get('/user/', (req, res) => {
-
+    
 });
 
 // PUT (/user/:id) - Update user’s record
