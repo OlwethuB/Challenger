@@ -59,7 +59,18 @@ router.patch('/user/:id', (req, res) =>{
 
 // POST (/register) - To register a new user
 router.post('/register', (req, res) => {
-
+    const { firstName, lastName, DOB, email, password, profilePic } = req.body;
+    const sql = 'INSERT INTO Users (firstName, lastName, DOB, email, password, profilePic) VALUES (?, ?, ?)';
+    const params = [firstName, lastName, DOB, email, password, profilePic];
+    connection.query(sql, params, (error, results, fields) => {
+        if (error) {
+            console.log('Error adding user: ', error);
+            res.status(500).send('error');
+        } else {
+            console.log('User added successfully');
+            res.status(201).send('User inserted successfully');
+        }
+    });
 });
 
 // DELETE (/user/:id) - To delete a single user
