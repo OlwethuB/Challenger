@@ -20,7 +20,7 @@ router.get('/users', (req, res) => {
     connection.query(sql, (error, results, fields) => {
         if (error) {
             console.log('error getting user info: ', error);
-            res.status(500).send('Error');
+            res.status(500).send('Error'); 
         } else {
             console.log('User info retrieved successfully');
             res.json(results);
@@ -52,7 +52,7 @@ router.put('/user/:id', (req, res) => {
     const { userID } = req.params;
     const { firstName, lastName, DOB, email, password, profilePic } = req.body;
     const sql = 'UPDATE books SET firstName = ?, lastName = ?, DOB = ?, email = ?, password = ?, profilePic = ?  WHERE userID = ?';
-    const params = [firstName, lastName, DOB, email, password, profilePic];
+    const params = [firstName, lastName, DOB, email, password, profilePic, userID];
     connection.query(sql, params, (error, results, fields) => {
         if (error) {
             console.log('Error updating user: ', error);
